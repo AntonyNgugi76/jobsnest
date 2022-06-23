@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">JobsNest</string>
+    <string name="login">Login</string>
+    <string name="loginText">Dont have an account yet? Register</string>
+    <string name="register">Register</string>
+    <string name="logon">Have an account? Login</string>
+    <string name="submit">Add</string>
+    <string name="account_name">Account Name</string>
+    <string name="deadline">Deadline</string>
+    <string name="writer_earning">Writer Earning</string>
+    <string name="writer_name">Writer Name</string>
+    <string name="amount_paid">Amount Paid</string>
+    <string name="job_description">Job Description</string>
+    <string name="client_name">Client Name</string>
+    <string name="add_job">Add Job</string>
+    <string name="amount">Amount Paid</string>
+</resources>
