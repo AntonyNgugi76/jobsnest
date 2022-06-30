@@ -1,16 +1,10 @@
 package com.example.jobsnest.Activities
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.example.jobsnest.Job
-import com.example.jobsnest.R
 import com.example.jobsnest.databinding.ActivityAddworkBinding
-import com.example.jobsnest.databinding.ActivityMainBinding
-import com.example.jobsnest.databinding.ActivityMainBinding.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -23,7 +17,7 @@ class AddWorkActivity : AppCompatActivity(){
     super.onCreate(savedInstanceState)
         setContentView(workBinding.root)
 
-        val user =FirebaseAuth.getInstance().currentUser
+        val user =FirebaseAuth.getInstance().currentUser?.uid!!
 
         workBinding.addWorkButton.setOnClickListener {
 
@@ -34,7 +28,7 @@ class AddWorkActivity : AppCompatActivity(){
             val writer_earning=  workBinding.writerEarning.text.toString().toInt()
             val amt=  workBinding.amountPaid.text.toString().toInt()
 
-            user?.uid?.let { workDetails(it,acc_name="fiverr",job_desc, deadline_date=5,writer_name,writer_earning,amt) }
+            workDetails(user,acc_name="fiverr",job_desc, deadline_date=5,writer_name,writer_earning,amt)
         }
     }
 
@@ -46,9 +40,9 @@ class AddWorkActivity : AppCompatActivity(){
                             writer_earning:Int,
                             amt: Int) {
         val database = Firebase.database
-        val myRef = database.getReference("jobs")
-        val job =Job(acc_name,job_desc,deadline_date,writer_name,writer_earning,amt)
-        myRef.child(uid).setValue(job)
+        val myRef = database.getReference("jobs").child(uid).push()
+        val job =Job(acc_name, job_desc, deadline_date,amt, writer_earning, writer_name)
+        myRef.setValue(job)
 
     }
 
